@@ -68,10 +68,12 @@ public class FriendDAOImpl implements FriendDAO {
     
     @Transactional(propagation=Propagation.SUPPORTS)
 	public List<Friends> viewAllRequest(int fndid) {
+    	System.out.println("just in dao");
     	Session s=sf.getCurrentSession();
 		Transaction t=s.beginTransaction();
 		System.out.println("reddy");
 		Criteria c=sf.getCurrentSession().createCriteria(Friends.class);
+		c.add(Restrictions.eq("friend.userFriend",fndid));
 		c.add(Restrictions.eq("status","Requested"));
 		List<Friends> f=(List<Friends>)c.list();
 		t.commit();

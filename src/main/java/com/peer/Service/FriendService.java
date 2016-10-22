@@ -33,7 +33,7 @@ public class FriendService implements IFriendService {
 
 	public List<Friends> viewAllRequest(int fndid) {
 		System.out.println("sai");
-		return fn.viewAllFriends();
+		return fn.viewAllRequest(fndid);
 	}
 
 	public User retriveFriend(int fndid) {

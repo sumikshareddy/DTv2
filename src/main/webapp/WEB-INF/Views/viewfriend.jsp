@@ -74,23 +74,20 @@
         </tr>    
     </table>
 </div>
-<%-- <div>
+ <div>
     <table class="table table-striped">
     <tr>
-    
     <th>name</th>
-    
-   
     </tr>
 		<c:forEach var="frd" items= "${friendRequests}">
         <tr>
             
             <td>${frd.getFriend()}</td>
            
- --%>           <%--   <td> <a href="acceptfriend?f=${frd.getReqid()}"<!--  class="button" role="button">accept</a> -->
+          <%--   <td> <a href="acceptfriend?f=${frd.getReqid()}"<!--  class="button" role="button">accept</a> -->
  --%>            
          </tr> 
-        <%-- </c:forEach>    --%>
+         </c:forEach>    
     </table> 
     </div>
     </div>
