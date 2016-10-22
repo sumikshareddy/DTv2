@@ -87,7 +87,7 @@ public class ApplicationConfiguration {
 	        javaMailSender.setPort(587);
 	        javaMailSender.setProtocol("smtp");
 	        javaMailSender.setUsername("sumikshareddy4@gmail.com");
-	        javaMailSender.setPassword("reddy@111");
+	        javaMailSender.setPassword("p********d");
 	        
 	        return javaMailSender;
 	    }
