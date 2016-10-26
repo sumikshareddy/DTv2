@@ -16,8 +16,8 @@
 
 body{margin-top:20px;}
 
-@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+/* @import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans); */
 body
 {
 font-family: 'Open Sans', sans-serif;
@@ -316,7 +316,7 @@ img {
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <div class="container text-center">
     <div class="row">
-    	<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-whatsapp"></i> Whatsapp Chat Box POPUP</h2>
+    	<h2 style="color: rgb(24, 157, 14);"><i aria-hidden="true" class="fa fa-whatsapp"></i> Chat Box POPUP</h2>
        
         <div class="round hollow text-center">
         <a href="#" class="open-btn" id="addClass"><i class="fa fa-whatsapp" aria-hidden="true"></i> Click Here</a>
@@ -324,7 +324,7 @@ img {
         
        	</div>
 </div>
-
+</div>
 
 <aside id="sidebar_secondary" class="tabbed_sidebar ng-scope chat_sidebar">
 

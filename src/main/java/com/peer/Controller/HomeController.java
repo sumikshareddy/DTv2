@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -142,10 +143,12 @@ public class HomeController {
 		ModelAndView mv=new ModelAndView("viewfriend","command",new User());
 		//System.out.println("hi frds "+iFriendService.viewAllRequest(iUserService.get().getUid()).get(0).getFriend().getUser().getFirstname());
 		mv.addObject("users", toJson(iUserService.viewUser()));
-		mv.addObject("friendRequests",iFriendService.viewAllRequest(iUserService.get().getUid()));
+		//mv.addObject("friendRequests",iFriendService.viewAllRequest(iUserService.get().getUid()));
 		return  mv; 
 		
 	}
+	
+	User user;
 
 	@RequestMapping(value = { "/addasfriend" })
 	public ModelAndView view(HttpServletRequest request, @ModelAttribute("peers") Friends f,BindingResult result) 
@@ -158,11 +161,26 @@ public class HomeController {
 		System.out.println("user n frds");
 		System.out.println(iUserService.get().getFirstname());
 		iFriendService.addFriend(iUserService.get(),Integer.parseInt(fid));
-		System.out.println("siri");
+		System.out.println("siri red");
+		System.out.println("contro");
+    
+		/*System.out.println(user.getFirstname()); */
+    	Friends userFriends=new Friends();
+    	System.out.println("what the fish...!!!!");
+    	userFriends.setStatus("Requested");
+    	Friend friend=new Friend();
+    	System.out.println("fishyy it field");
+		friend.setUser(user);
+    	List<User> frnd=iUserService.viewUser();
+        friend.setUser(user);;
+    	System.out.println("i hate eclipse");
+    	userFriends.setFriend(friend);
+    	System.out.println("pichhhiiiiii.......");
+    	
 		return new ModelAndView("home","welcome",iUserService.get());
 	}
-	
-	
+
+
 
 	@RequestMapping(value = { "/acceptfriend" })
 	public String view(HttpServletRequest request, @ModelAttribute("peers") Friend f,BindingResult result) 

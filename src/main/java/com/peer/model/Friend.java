@@ -4,14 +4,22 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 @Embeddable
 public class Friend implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@ManyToOne
-	private User user;
+	@NotNull
+	private User user;  
 	
-	private Integer userFriend;
+	@ManyToOne
+	@NotNull
+	private User userFriend;
 	
 	public User getUser() {
 		return user;
@@ -21,13 +29,14 @@ public class Friend implements Serializable {
 		this.user = user;
 	}
 
-	public Integer getUserFriend() {
+	public User getUserFriend() {
 		return userFriend;
 	}
 
-	public void setUserFriend(Integer userFriend) {
+	public void setUserFriend(User userFriend) {
 		this.userFriend = userFriend;
 	}
+
 
 	
 	

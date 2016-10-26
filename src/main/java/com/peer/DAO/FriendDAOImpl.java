@@ -3,6 +3,7 @@ package com.peer.DAO;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -37,22 +38,36 @@ public class FriendDAOImpl implements FriendDAO {
 	public void addFriend(User user, Integer fndid) {
     	System.out.println("add friend DAO");
 		Session s=sf.getCurrentSession();
-    	Transaction t=s.beginTransaction();
     	
     	System.out.println("Transactio started");
     	System.out.println(user.getFirstname());
     	Friends userFriends=new Friends();
+    	System.out.println("poppy");
     	userFriends.setStatus("Requested");
     	Friend friend=new Friend();
     	System.out.println("frdzzzz");
     	friend.setUser(user);
-    	friend.setUserFriend(fndid);
+    	User frnd=retriveFriend(fndid);
+    	//String hql = "from Friends where Friend.userFriend.uid = '18'";
+    	//Query query = s.createQuery(hql);
+    	System.out.println("friend");
+    	 Criteria c=s.createCriteria(Friends.class);
+    	 int i=frnd.getUid();
+    	c.add(Restrictions.eq("friend.userFriend.uid",i));
+    	System.out.println("good eclipse");
+    	List<Friend> frds=c.list();
+    	System.out.println("size"+frds);
+    	for(Friend f:frds){
+    		System.out.println(f);
+    	}
+    	friend.setUserFriend(frnd);
     	System.out.println("fnd");
     	userFriends.setFriend(friend);
+    	Transaction t=s.beginTransaction();
 		s.save(userFriends);
-		t.commit();
-		
+		t.commit();	
 	}
+    
     @Transactional(propagation=Propagation.SUPPORTS)
 	public void updateFriend(int reqId) {
     	Session s=sf.openSession();
@@ -63,8 +78,8 @@ public class FriendDAOImpl implements FriendDAO {
     	f.setStatus("Accepted");
     	s.update(f);
     	t.commit();
-
     }
+    
     
     @Transactional(propagation=Propagation.SUPPORTS)
 	public List<Friends> viewAllRequest(int fndid) {
@@ -86,7 +101,7 @@ public class FriendDAOImpl implements FriendDAO {
 		Transaction t=s.beginTransaction();
 		System.out.println("friend retrived");
 		Criteria c=sf.getCurrentSession().createCriteria(User.class);
-		c.add(Restrictions.eq("userid", fndid));
+		c.add(Restrictions.eq("uid", fndid));
 		User u=(User)c.uniqueResult();
 		t.commit();
 		return u;

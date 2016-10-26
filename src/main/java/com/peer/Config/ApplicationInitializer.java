@@ -9,6 +9,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 		return new Class[]{ApplicationConfiguration.class,ViewResolverConfiguration.class,MvcConfig.class};
 	}
 	@Override
+	
 	protected Class<?>[] getServletConfigClasses() {
 		
 		return null;

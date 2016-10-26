@@ -54,18 +54,31 @@
 <body ng-app="myApp">
 <div class="container bootstrap snippet">
 <div class="jumbotron list-content">
+
 <div ng-controller="dataCtrl">
-<table class="table table-striped">
-    <tr>
+ <div class="header">
+    <h3 class="text-muted prj-name">
+        <span class="fa fa-users fa-2x principal-title"></span>
+        Friend zone
+    </h3>
+  </div>
+<table>
+   <!--  <tr  class="list-group-item title"> -->
     
-    <th>Name</th>
-    <th>Status</th>
+   <!--  <th class="list-group-item text-left">Name</th>
+    <th class="list-group-item text-left">Status</th> -->
     
    
     </tr>
         <tr ng-repeat="resource in names | filter:search">
             <!-- <td>{{resource.uid}}</td>
- -->            <td>{{ resource.username}}</td>
+ -->           <!--  <td>{{ resource.username}}</td> -->
+   <tr>
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class= class="list-group-item text-left" href="#"> <img class="img-thumbnail" src="<c:url value="/resources/images/{{ resource.username}}.jpg"/>" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="#">{{resource.uid}}</a></h4>
             <!-- <td>{{ resource.mail}}</td>
             <td>{{ resource.mobile}}</td> -->
             <td> <a href="addasfriend?u={{resource.uid}}" class="button" role="button">sendrequest</a>                        <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td>
@@ -82,10 +95,9 @@
 		<c:forEach var="frd" items= "${friendRequests}">
         <tr>
             
-            <td>${frd.getFriend()}</td>
+            <td>${frd.getFriend().user.firstname}</td>
            
-          <%--   <td> <a href="acceptfriend?f=${frd.getReqid()}"<!--  class="button" role="button">accept</a> -->
- --%>            
+          <td> <a href="acceptfriend?f=${frd.getReqid()}" class="button" role="button">accept</a>       
          </tr> 
          </c:forEach>    
     </table> 
