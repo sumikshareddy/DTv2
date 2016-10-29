@@ -20,19 +20,26 @@
 <title>Connect in.Com</title>
 <style>
 
+ body {
+    background: url(.//resources/images/home.jpg) no-repeat fixed center center; 
 
+}
 
 
 </style>
 </head>
 <body>
+<body background="resources/images/home.jpg">
 
- Welcome to Connect in.com....!!!!!!
+ <!-- Welcome to Connect in.com....!!!!!!
+  -->
  
- 
+   
 	
 	   <div style="float: right; position: absolute; top: 0px; right: 90px;"><a href="login"><span class="glyphicon glyphicon-log-in"></span>Login</a><br></div>
 	   <div style="float: right; position: absolute; top: 0px; right: 20px;"><a href="signup"><span class="glyphicon glyphicon-user"></span>Register</a></div>
+	
+	
 	
     
    	   <div style="float: right; position: absolute; top: 75px; right:135px;"><a href="login"><span class="glyphicon glyphicon-user"></span>Welcome ${Welcome.firstname} ${Welcome.lastname}!!</a><br></div>

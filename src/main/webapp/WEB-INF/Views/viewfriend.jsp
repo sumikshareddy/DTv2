@@ -62,31 +62,46 @@
         Friend zone
     </h3>
   </div>
+  
+ 
 <table>
-   <!--  <tr  class="list-group-item title"> -->
-    
-   <!--  <th class="list-group-item text-left">Name</th>
-    <th class="list-group-item text-left">Status</th> -->
-    
-   
-    </tr>
+<td class="col-sm-8 col-md-6">
+ <div class="media">
+  <a class=class="list-group-item text-left" href="#"> <img class="img-thumbnail" src="<c:url value="/resources/images/f1.jpg"/>" style="width: 72px; height: 72px;"> </a>
+    <c:forEach var="f" items="${friends}">
+  	<label class="name">
+        <c:if test="${f.friend.userFriend.uid==user.uid}">
+         ${f.friend.user.username}<br>
+         </c:if>
+        </label>
+  </c:forEach>
+  </div>
+  </td>
+ 
+  
         <tr ng-repeat="resource in names | filter:search">
-            <!-- <td>{{resource.uid}}</td>
- -->           <!--  <td>{{ resource.username}}</td> -->
-   <tr>
+          
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class= class="list-group-item text-left" href="#"> <img class="img-thumbnail" src="<c:url value="/resources/images/{{ resource.username}}.jpg"/>" style="width: 72px; height: 72px;"> </a>
+                            <a class=class="list-group-item text-left" href="#"> <img class="img-thumbnail" src="<c:url value="/resources/images/f1.jpg"/>" style="width: 72px; height: 72px;"> </a>
+                            <label class="name">
+          {{resource.username}} <br>
+        </label></div>
+        </td>
+        
+        
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="#">{{resource.uid}}</a></h4>
+                                <h4 class="media-heading"><a href="#">{{resource.username}}</a></h4>
             <!-- <td>{{ resource.mail}}</td>
             <td>{{ resource.mobile}}</td> -->
             <td> <a href="addasfriend?u={{resource.uid}}" class="button" role="button">sendrequest</a>                        <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td>
             <td><a href="deleteProduct?id={{resource.product_id}}">Delete</a></td> -->
+           </td>
+        </tr> 
            
-        </tr>    
     </table>
 </div>
+
  <div>
     <table class="table table-striped">
     <tr>
@@ -117,6 +132,7 @@ angular.module('myApp',[]).controller('dataCtrl',function($scope)
 		});
 
 </script>
+
 
 
 </body>

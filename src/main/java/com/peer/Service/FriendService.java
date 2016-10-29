@@ -26,9 +26,9 @@ public class FriendService implements IFriendService {
 		
 	}
 
-	public List<Friends> viewAllFriends() {
+	public List<Friends> viewAllFriends(User u) {
 		
-		return fn.viewAllFriends();
+		return fn.viewAllFriends(u);
 	}
 
 	public List<Friends> viewAllRequest(int fndid) {

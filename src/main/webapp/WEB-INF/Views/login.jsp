@@ -13,227 +13,116 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
+<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 	
 <title>Login</title>
 <style>
-/* Base styles */
-*, 
-*:after, *:before {
- 
- box-sizing: border-box;
- }
-html
- {
- font-size: 100%;
- line-height: 1.5;
- height: 100%;
-}
-body {
- position: relative;
- margin: 0;
- font-family: 'Work Sans', Arial, Helvetica, sans-serif;
- min-height: 100%;
- background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
- color: #777;
+
+ body {
+    background: url(.//resources/images/rose_wine_fire.jpg) no-repeat fixed center center; 
+    background-size: cover;
+     font-family: Montserrat; 
+} 
+ .logo {
+    width: 213px;
+    height: 36px;
+   /*  background: url('http://i.imgur.com/fd8Lcso.png') no-repeat; */
+    margin: 30px auto;
+} 
+
+.login-block {
+    width: 320px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border-top: 5px solid #ff656c;
+    margin: 0 auto;
 }
 
-img {
- vertical-align: middle;
- max-width: 100%;
-}
-button {
-cursor: pointer;
- border: 0;
- padding: 0;
- background-color: transparent;
+.login-block h1 {
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
-/* Container */
+.login-block input {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat;
+    padding: 0 20px 0 50px;
+    outline: none;
+}
 
-.container {
- position: absolute;
-width: 24em;
-left: 50%;
-top: 50%;
-transform: translate(-50%,-50%);
- animation: intro .7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+.login-block input#username {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px top no-repeat;
+    background-size: 16px 80px;
 }
-/* Profile Card */
-.profile {
- position: relative;
-}
-.profile--open {
-}
-.profile--open
-.profile__form {
-  
-visibility: visible;
-  height: auto;
-  opacity: 1;
-  transform: translateY(-6em); 
-  padding-top: 12em;
-}
-.profile--open 
-.profile__fields {
- opacity: 1;
-  visibility: visible;
-}
-.profile--open 
-.profile__siri {
- transform: translate(-50%, -1.5em); 
- border-radius: 50%;
-}
-.profile__form {
-  position: relative;
- background: white;
- visibility: hidden;
-  opacity: 0;
-  height: 0;
- padding: 3em;
-border-radius: .25em;
- -webkit-filter: drop-shadow(0 0 2em rgba(0,0,0,0.2));
-  transition: 
-    opacity .4s ease-in-out,
-    height .4s ease-in-out,
-    transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    padding .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.profile__fields {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.profile__siri {
- position: absolute;
-z-index: 1;
- left: 50%;
- transform: translateX(-50%);
- border-radius: 1.25em;
-overflow: hidden;
- width: 4.5em;
-height: 4.5em;
-display: block;
-transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
- will-change: transform;
-}
-.profile__siri:focus {
- outline: 0;
-}
-.profile__footer {
-  padding-top: 1em;
-}
-/* Form */
-.field {
- position: relative;
-margin-bottom: 2em;
-}
-.label {
- position: absolute;
-height: 2rem;
- line-height: 2rem;
-bottom: 0;
-color: #999;
-transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.input {
- width: 100%;
-font-size: 100%;
- border: 0;
-padding: 0;
-background-color: transparent;
- height: 2rem;
- line-height: 2rem;
-border-bottom: 1px solid #eee;
-color: #777;
-transition: all .2s ease-in;
-}
-.input:focus {
- outline: 0;
- border-color: #ccc;
-}
-/* Using required and a faux pattern to see if input has text from http://stackoverflow.com/questions/16952526/detect-if-an-input-has-text-in-it-using-css */
 
-.input:focus + .label,
-input:valid + .label {
-  transform: translateY(-100%);
-  font-size: 0.75rem;
- color: #ccc;
+.login-block input#username:focus {
+    background: #fff url('http://i.imgur.com/u0XmBmv.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
 }
-/* Button */
-.btn {
-border: 0;
- font-size: 0.75rem;
- height: 2.5rem;
- line-height: 2.5rem;
- padding: 0 1.5rem;
- color: white;
- background: #8E49E8;
-text-transform: uppercase;
- border-radius: .25rem;
-letter-spacing: .2em;
- transition: background .2s;
+
+.login-block input#password {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px top no-repeat;
+    background-size: 16px 80px;
 }
-.btn:focus { 
- outline: 0;
+
+.login-block input#password:focus {
+    background: #fff url('http://i.imgur.com/Qf83FTt.png') 20px bottom no-repeat;
+    background-size: 16px 80px;
 }
-.btn:hover,
-.btn:focus {
-  background: #A678E2;
+
+.login-block input:active, .login-block input:focus {
+    border: 1px solid #ff656c;
 }
-/* Intro animation */
-@keyframes intro {
-  from {
- opacity: 0;
-    top: 0;
-  }
-  to
- {
- opacity: 1;
-top: 50%;
+
+.login-block button {
+    width: 100%;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
 }
+
+.login-block button:hover {
+    background: #ff7b81;
 }
+
+
 </style> 
 <body>
 <form:form action="LoginUser">
 	  <c:forEach var="e" items="${errors}">
 		<li>${e.getDefaultMessage()}" </li>
 	</c:forEach> 
-     <div class="container">
-      <div class="profile">
-     <button class="profile__siri" id="toggleProfile">
-            <img src="<c:url value="resources\project\siri2.jpg"/>"  alt="siri" /> 
-      </button>
-      <div class="profile__form">
-        <div class="profile__fields">
-          <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path= 'mail' name="fieldUser" placeholder="username"   required="true" />
-   </div>
-    <div class="field">   
-    <label for="fieldUser" class="label" ></label>       
-      <form:input path='password' name="fieldPassword"  type="password" placeholder="password" class="input" required="true" />
-       </div>
-       <div class="profile__footer">
-      <button type="submit" class="btn btn-success btn-sm">Login</button>
-        Not Registred? <a href="register">Register here</a>
-       <!--  <button class="btn">Login</button> -->
-       </div>
-     </div>
-     </div>
-    </div>
-   </div>
 	
-	 </form:form>
-	 <script>
+    <form class="form" method="post" action="#">
 
-/* Simple VanillaJS to toggle class */
-
-document.getElementById('toggleProfile').addEventListener('click', function () {
-  [].map.call(document.querySelectorAll('.profile'), function(el) {
-    el.classList.toggle('profile--open');
-  });
-});</script>
+      <div class="logo"></div>
+<div class="login-block">
+    <h1>Login</h1>
+     <form:input path= 'mail' name="fieldUser" placeholder="username"   required="true" />
+    <form:input path='password' name="fieldPassword"  type="password" placeholder="password" class="input" required="true" />
+    <button>Submit</button>	
 	 
+  </form:form>
+
 </body>
 </html>

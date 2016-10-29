@@ -9,7 +9,7 @@ public interface FriendDAO {
 	
 	public void addFriend(User Uid,Integer fndid);
 	public void updateFriend(int fndid);
-	public List<Friends> viewAllFriends();
+	public List<Friends> viewAllFriends(User u);
 	public List <Friends> viewAllRequest(int fndid);
 	public User retriveFriend(int fndid);
 

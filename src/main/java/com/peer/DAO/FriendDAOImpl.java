@@ -25,11 +25,16 @@ public class FriendDAOImpl implements FriendDAO {
 	private SessionFactory sf;
 	
 	@Transactional(propagation=Propagation.SUPPORTS)
-	public List<Friends> viewAllFriends() {
+	public List<Friends> viewAllFriends(User u) {
 		Session s=sf.getCurrentSession();
 		Transaction t=s.beginTransaction();
 		Criteria c=sf.getCurrentSession().createCriteria(Friends.class);
+		c.add(Restrictions.disjunction()
+				.add(Restrictions.eq("friend.userFriend.uid",u.getUid()))
+				.add(Restrictions.eq("friend.user.uid",u.getUid())));
+		c.add(Restrictions.eq("status", "Accepted"));
 		List<Friends> f=(List<Friends>)c.list();
+		System.out.println(u.getUid()+" "+c.list().size());
 		t.commit();
 		return f;
 	}
@@ -48,23 +53,17 @@ public class FriendDAOImpl implements FriendDAO {
     	System.out.println("frdzzzz");
     	friend.setUser(user);
     	User frnd=retriveFriend(fndid);
-    	//String hql = "from Friends where Friend.userFriend.uid = '18'";
-    	//Query query = s.createQuery(hql);
-    	System.out.println("friend");
-    	 Criteria c=s.createCriteria(Friends.class);
-    	 int i=frnd.getUid();
-    	c.add(Restrictions.eq("friend.userFriend.uid",i));
-    	System.out.println("good eclipse");
-    	List<Friend> frds=c.list();
-    	System.out.println("size"+frds);
-    	for(Friend f:frds){
-    		System.out.println(f);
-    	}
     	friend.setUserFriend(frnd);
     	System.out.println("fnd");
     	userFriends.setFriend(friend);
+    	Query query = s.createSQLQuery("SELECT * FROM FRIENDS where USER_UID ="+user.getUid()+" and USERFRIEND_UID ="+fndid)
+				.addEntity(Friends.class);
+				List result = query.list();
+				System.out.println(result.size());
     	Transaction t=s.beginTransaction();
-		s.save(userFriends);
+    	if(result.size()<1){
+    		s.save(userFriends);
+    	}
 		t.commit();	
 	}
     
@@ -83,14 +82,14 @@ public class FriendDAOImpl implements FriendDAO {
     
     @Transactional(propagation=Propagation.SUPPORTS)
 	public List<Friends> viewAllRequest(int fndid) {
-    	System.out.println("just in dao");
     	Session s=sf.getCurrentSession();
 		Transaction t=s.beginTransaction();
-		System.out.println("reddy");
-		Criteria c=sf.getCurrentSession().createCriteria(Friends.class);
-		c.add(Restrictions.eq("friend.userFriend",fndid));
+		Criteria c=s.createCriteria(Friends.class);
+		c.add(Restrictions.eq("friend.userFriend.uid",fndid));
+		System.out.println("sumiksha");
 		c.add(Restrictions.eq("status","Requested"));
 		List<Friends> f=(List<Friends>)c.list();
+		System.out.println("bh");
 		t.commit();
 		return f;
 	}

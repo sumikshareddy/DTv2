@@ -57,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 			Session s=sf.getCurrentSession();
 			Transaction t=s.beginTransaction();
 			Criteria c=s.createCriteria(User.class);
-			//c.add(Restrictions.ne("Uid", ))
+			c.add(Restrictions.ne("uid",user.getUid()));
 			List<User> l1=(List<User>)c.list();
 			return l1;
 		}

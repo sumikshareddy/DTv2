@@ -2,10 +2,13 @@ package com.peer.model;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
+
 import javax.validation.constraints.NotNull;
 @Embeddable
+
 public class Friend implements Serializable {
 	
 	/**

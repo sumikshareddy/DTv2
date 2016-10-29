@@ -143,7 +143,9 @@ public class HomeController {
 		ModelAndView mv=new ModelAndView("viewfriend","command",new User());
 		//System.out.println("hi frds "+iFriendService.viewAllRequest(iUserService.get().getUid()).get(0).getFriend().getUser().getFirstname());
 		mv.addObject("users", toJson(iUserService.viewUser()));
-		//mv.addObject("friendRequests",iFriendService.viewAllRequest(iUserService.get().getUid()));
+		mv.addObject("friendRequests",iFriendService.viewAllRequest(iUserService.get().getUid()));
+		mv.addObject("friends",iFriendService.viewAllFriends(iUserService.get()));
+		mv.addObject("user",iUserService.get());
 		return  mv; 
 		
 	}
