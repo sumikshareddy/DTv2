@@ -1,5 +1,6 @@
 package com.peer.DAO;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.peer.model.Friends;
 import com.peer.model.User;
 import com.peer.model.UserRole;
 
@@ -56,8 +58,21 @@ public class UserDAOImpl implements UserDAO {
 		public List<User> viewUser() {
 			Session s=sf.getCurrentSession();
 			Transaction t=s.beginTransaction();
+			Criteria fc=s.createCriteria(Friends.class);
+			fc.add(Restrictions.disjunction()
+					.add(Restrictions.eq("friend.userFriend.uid",user.getUid()))
+					.add(Restrictions.eq("friend.user.uid",user.getUid())));
+			List<Friends> f=(List<Friends>)fc.list();
+			List<Integer> fids= new ArrayList<Integer>();
+			for(Friends fs:f){
+				fids.add(fs.getFriend().getUser().getUid());
+			}
+			for(Friends fs:f){
+				fids.add(fs.getFriend().getUserFriend().getUid());
+			}
 			Criteria c=s.createCriteria(User.class);
 			c.add(Restrictions.ne("uid",user.getUid()));
+			c.add(Restrictions.not(Restrictions.in("uid",fids)));
 			List<User> l1=(List<User>)c.list();
 			return l1;
 		}

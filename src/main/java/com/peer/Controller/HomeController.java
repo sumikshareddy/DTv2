@@ -127,7 +127,7 @@ public class HomeController {
 	//@modelattribute An annotated method parameter can be mapped to an attribute in a model .
 	
 	@RequestMapping(value = { "LoginUser" })
-	public ModelAndView Login(HttpServletRequest request,@ModelAttribute("peer") User u,BindingResult result) throws MessagingException {
+	public ModelAndView Login(HttpServletRequest request,@ModelAttribute("peers") User u,BindingResult result) throws MessagingException {
 		System.out.println("Login");
 		User user=iUserService.verifyuser(u);
 		

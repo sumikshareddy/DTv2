@@ -143,18 +143,18 @@ img {
 
 <body ng-app="blogApp">
   
-  <div ng-controller="BlogController as blog">
+  <div ng-controller="BlogController as resource">
       <div class="topbar">
         <div class="container">
           <div class="row">
             <div class="col-s-4">
-              <h1 ng-click="blog.selectTab('blog')" class="push-left">{{blog.title}}</h1>
+              <h1 ng-click="blog.selectTab('blog')" class="push-left">{{resource.title}}</h1>
             </div>
             <div class="offset-s-4 col-s-4">
               <nav role='navigation' class="push-right">
                 <ul>
-                  <li><a href="#" ng-click="blog.selectTab('blog')">See All Posts</a></li> 
-                  <li><a href="#" ng-click="blog.selectTab('new')">Add New Post</a></li>
+                  <li><a href="viewblog" ng-click="blog.selectTab('blog')">See All Posts</a></li> 
+                  <li><a href="blog" ng-click="blog.selectTab('new')">Add New Post</a></li>
                 </ul>
               </nav> 
             </div>
@@ -181,20 +181,20 @@ img {
             
             <h2>{{resource.title}}</h2>
             <img src="{{post.image}}" ng-show="{{post.image}}"/>
-            <cite>by {{resource.author}} on {{post.createdOn | date}}</cite>
+            <cite>by {{resource.user.uid}} on {{post.createdOn | date}}</cite>
             <div class="post-body">
-             <p ng-repeat="paragraph in post.body">
-               {{paragraph}}
+             <p ng-repeat="content in post.body">
+               {{content}}
              </p> 
             </div>
             
             <div class="comments" ng-controller="CommentController as commentCtrl">
-              <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
-              <h3>Comments</h3>
+             <!--  <button class="fa fa-heart" ng-click="post.likes = post.likes+1"> {{post.likes}}</button>
+ -->              <h3>Comments</h3>
               <ul>
                <li ng-repeat="comment in post.comments">
                  "{{comment.comid}}"
-                 <cite>- <b>{{comment.desc}}</b></cite>
+                 <cite>- <b>{{comment.cdesc}}</b></cite>
                </li>
               </ul>
               <form name="commentForm" ng-submit="commentForm.$valid && commentCtrl.addComment(post)" novalidate>
@@ -203,7 +203,7 @@ img {
                 <h4>Add Comment</h4>
                   <textarea ng-model="commentCtrl.comment.body" cols="30" rows="10" required></textarea>
                 <label for="">by:</label>
-                  <input type="text" ng-model="commentCtrl.comment.author" required placeholder="Name"/>
+                  <input type="text" ng-model="commentCtrl.Comment.author" required placeholder="Name"/>
                   
                   <input type="submit" value="Submit" />
                 </form>

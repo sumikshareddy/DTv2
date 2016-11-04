@@ -1,10 +1,11 @@
 package com.peer.Service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.peer.model.Chat;
-@Service
-public interface IChatService
-{
-	public void createChat(Chat chat);
+
+public interface IChatService {
+
+	public void addChat(Chat chat);
+	public List<Chat> viewChat(Integer fromUser,Integer toUser);
 }

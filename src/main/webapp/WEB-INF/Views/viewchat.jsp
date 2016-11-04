@@ -14,53 +14,117 @@
  
   <script>document.write('<base href="' + document.location + '" />');</script>
     <script data-require="angular.js@1.0.x" src="http://code.angularjs.org/1.0.7/angular.min.js" data-semver="1.0.7"></script>
-    <style>
+    <style>        
     	.chatWindow{
-    		width:80%;
+    	background-color: #cccccc;
+    	 position: absolute;
+         bottom: 10%;
+         right: 15%;
+         width: 400px;
+         height: 80px;
+         text-align:center;
+         
+    		/* width:40%;
     		background-color: #cccccc;
     		text-align:center;
-    		position:relative;
+    		Bottom:5px;
+    		position:fixed; */
     	}
     	.chatUsers{
-    		width:15%;
+    	     position: absolute;
+    	     background-color: #ccfffc;
+             bottom:10%;
+             right: 1%;
+             width: 15%;
+             z-index: 8;
+    		/* width:15%;
     		background-color: #ccfffc;
-    		float:right;
+    		Bottom:5px;
+    	    position:absolute;
+    	    alignment:right; */
     	}
-    	.message_input{
-    	     width:35%;
+    	/* .message_input{
+    	     width:40px;
+    	} */
+    	.message_input_wrapper{
+    	width: 250px;
+	    height: 30px; 
+	   font-family: 'Exo', sans-serif;
+	   font-size: 16px;
+	   font-weight: 400;
+	   
     	}
+    	
+
+    .header div span{
+	       color: #555555 !important;
+	       float: left;
+	       color: #fff;
+	       font-family: 'Exo', sans-serif;
+	       font-size: 35px;
+	       font-weight: 200;
+       }
     </style>
-<title>chats</title>
+<title>peers</title>
 </head>
 <body>
+    <div class="header">
+			<div><span> Chat Here...!</span></div>
+		</div>
 	<div class='chatWindow'>
-	<div class="top_menu">
-        <!-- <div class="buttons">
+	<!-- <div class="top_menu">
+        <div class="buttons">
             <div class="button close"></div>
             <div class="button minimize"></div>
             <div class="button maximize"></div>
-        </div> -->
+        </div>
 	<div class="title">Chat</div>
-    </div>
-		<ul class="messages"></ul>
-    <div class="bottom_wrapper clearfix">
-    Your Chatting with ${friend.username}
+    </div> -->
+      <form:form action="storechat" method="post">
+		
+    <c:forEach var="m" items="${msgs}">
+    <p>${m.getMessage()}</p>
+    <%-- ${m.getMessage()} ${m.getFromUser()} ${m.getToUser()}  --%>
+    <c:if test="${m.fromUser=chat.uid}">
+  
+      <div class="msgs">
+        <p>${m.getMessage()}</p>
+       
+      </div>
+    
+    </c:if>
+    <c:if test="${m.toUser==chat.uid}">
+    
+   
+      <div class="msgs">
+        <p>${m.getMessage()}</p>
+       
+      </div>
+    
+    </c:if>
+    </c:forEach>
+    
         <div class="message_input_wrapper">
-            <input class="message_input" placeholder="Type your message here..." />
-            <input type="hidden" >
-        </div>
-        <div class="send_message">
-            <div class="icon"></div>
-            <div class="btn btn-info">Send</div>
-        </div>
-    </div>
+        
+              
+        
+               <form:input type="text" path="message" placeholder="Type your message here..." />
+          
+           <form:input type="hidden" path="fromUser"  placeholder="Type your message here..." />
+      
+           <button type="submit"class="btn btn-info">Send</button>
+      
+        </div>         
+        
+    </form:form>
 	</div>
 	<div class='chatUsers'>
-	<ui>
-		<c:forEach var="c" items="${chatusers}">
-			<li><a href="startChat?userFriend=${c.uid}">${c.username}</a></li>
+	  <ul>
+	  
+		 <c:forEach var="c" items="${chatusers}">
+			<li><a href="startChat?frdid=${c.friend.user.uid}">${c.friend.userFriend.username}</a></li>
 		</c:forEach>
-	</ui>
+	  </ul>
 	</div>
 </body>
 </html>

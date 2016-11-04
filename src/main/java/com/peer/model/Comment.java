@@ -19,6 +19,7 @@ public class Comment {
 	private User user;
 	
 	
+	
 /*	@ManyToOne
 	private Blog blog;*/
 	
@@ -32,7 +33,9 @@ public class Comment {
 	@Size(min=2,max=10)
 	private String cdesc;
 	
-	
+	@Column
+	@Size(min=1,max=50)
+	private String author;
 	
 	
 	/*public Blog getBlog() {
@@ -43,6 +46,16 @@ public class Comment {
 	public void setBlog(Blog blog) {
 		this.blog = blog;
 	}*/
+
+
+	public String getAuthor() {
+		return author;
+	}
+
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 
 	public User getUser() {

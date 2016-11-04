@@ -31,7 +31,7 @@ Enter Blog Name:  <input type="text"  ng-model="search">&nbsp&nbsp<span class="g
     <th>Reason</th>
     <th>Title</th>
     <th>Status</th>
-    <th>Image</th>
+    <th>user</th>
     </tr>
         <tr ng-repeat="resource in names | filter:search">
              <td>{{resource.bid}}</td>
@@ -40,7 +40,7 @@ Enter Blog Name:  <input type="text"  ng-model="search">&nbsp&nbsp<span class="g
             <td>{{ resource.reason}}</td>
             <td>{{ resource.title}}</td>
             <td>{{ resource.status}}</td>
-              <td>{{ resource.user.uid}}</td>
+            <td>{{ resource.user.uid}}</td> 
             <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td>
             <td><a href="deleteProduct?id={{resource.product_id}}">Delete</a></td> -->
         </tr>    

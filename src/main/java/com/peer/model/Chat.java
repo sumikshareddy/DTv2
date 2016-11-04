@@ -2,7 +2,6 @@ package com.peer.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,21 +10,55 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Chat {
+public class Chat
+{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String cid;
-	@Column
+	private Integer chatid;
+	
+	
+	@Size(min = 1, max = 50, message="message")
+	private String message;
+	
+	@NotNull
+	private Integer fromUser;
+	
+	@NotNull
+	private Integer toUser;
 	
 	@NotNull
 	private Date date;
-	
-	public String getCid() {
-		return cid;
+
+	public Integer getChatid() {
+		return chatid;
 	}
 
-	public void setCid(String cid) {
-		this.cid = cid;
+	public void setChatid(Integer chatid) {
+		this.chatid = chatid;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public Integer getFromUser() {
+		return fromUser;
+	}
+
+	public void setFromUser(Integer fromUser) {
+		this.fromUser = fromUser;
+	}
+
+	public Integer getToUser() {
+		return toUser;
+	}
+
+	public void setToUser(Integer toUser) {
+		this.toUser = toUser;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public Date getDate() {
@@ -36,40 +69,5 @@ public class Chat {
 		this.date = date;
 	}
 
-	public String getCname() {
-		return cname;
-	}
-
-	public void setCname(String cname) {
-		this.cname = cname;
-	}
-
-	public String getFromuser() {
-		return fromuser;
-	}
-
-	public void setFromuser(String fromuser) {
-		this.fromuser = fromuser;
-	}
-
-	public String getTouser() {
-		return touser;
-	}
-
-	public void setTouser(String touser) {
-		this.touser = touser;
-	}
-
-	@Column
-	@Size(min=1,max=20)
-	private String cname;
 	
-	@Column
-	@Size(min=1,max=20)
-	private String fromuser;
-
-	@Column
-	@Size(min=1,max=20)
-	private String touser;
-
 }
