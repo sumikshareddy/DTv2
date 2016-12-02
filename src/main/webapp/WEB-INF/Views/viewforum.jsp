@@ -12,7 +12,7 @@
  
   <script>document.write('<base href="' + document.location + '" />');</script>
     <script data-require="angular.js@1.0.x" src="http://code.angularjs.org/1.0.7/angular.min.js" data-semver="1.0.7"></script>
-<title>viewblog</title>
+<title>viewforum</title>
 </head>
 <body>
 
@@ -39,8 +39,8 @@ Enter Event Name:  <input type="text"  ng-model="search">&nbsp&nbsp<span class="
             <td>{{ resource.reason}}</td>
             <td>{{ resource.author}}</td>
            
-            <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td>
-            <td><a href="deleteProduct?id={{resource.product_id}}">Delete</a></td> -->
+            <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td> -->
+            <td><a href="deleteProduct?id={{resource.product_id}}">Delete</a></td> 
         </tr>    
     </table>
 </div>

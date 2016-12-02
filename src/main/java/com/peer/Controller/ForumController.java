@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.peer.Service.IForumService;
+import com.peer.model.Blog;
 import com.peer.model.Event;
 import com.peer.model.Forum;
 @Controller
@@ -27,12 +28,31 @@ public class ForumController {
 	
 	@Autowired
 	IForumService iForumService;
+	@RequestMapping(value = { "forum" })
+	public ModelAndView addforum(@Valid @ModelAttribute("peers")  Event e,BindingResult result) {
+		System.out.println("add forum");
+		String jsonData="";
+		ObjectMapper mapper=new ObjectMapper();
+		try {
+			jsonData=mapper.writeValueAsString(iForumService.viewForum());
+			System.out.println(jsonData);
+		} catch (JsonGenerationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JsonMappingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+		return new ModelAndView("forum", "command", new Forum()).addObject("forums", jsonData);
+		}	
+
 	
-	@RequestMapping(value=  { "forum"})
-	public ModelAndView forum() {
-		System.out.println("forum");
-		return new ModelAndView("forum","command",new Forum());
-	}
+
 	@RequestMapping(value = "store2", method=RequestMethod.POST)
 	public ModelAndView register(HttpServletRequest request,@Valid @ModelAttribute("peer") Forum f,BindingResult result) {
 		System.out.println("addforum");
@@ -54,7 +74,18 @@ public class ForumController {
 		}
 		return mv;
 	}
-	@RequestMapping(value=  {"viewforum"})
+	
+	@RequestMapping(value = { "forum/delete" })
+	public String delete(HttpServletRequest request) 
+	{
+		String fid = request.getParameter("f");
+		iForumService.deletequestion(Integer.parseInt(fid));
+		System.out.println("Delete forumcntrl");
+		return "redirect:/forum";
+		//return new ModelAndView("event", "command", new Product()).addObject("products",iProductService.viewAllProducts());
+	}
+
+	/*@RequestMapping(value=  {"viewforum"})
 	public ModelAndView Viewforum() {
 		System.out.println("viewforum");
 		String jsonData="";
@@ -74,5 +105,5 @@ public class ForumController {
 		}
 		return new ModelAndView("viewforum","command",new Forum()).addObject("forums", jsonData);
 	}
-
+*/
 }

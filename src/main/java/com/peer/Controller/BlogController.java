@@ -21,16 +21,34 @@ import com.peer.Service.IBlogService;
 import com.peer.model.Blog;
 import com.peer.model.Chat;
 import com.peer.model.Comment;
+import com.peer.model.Event;
 @Controller
 public class BlogController {
 	@Autowired
 	IBlogService iBlogService;
-	
-	@RequestMapping(value=  { "addblog"})
-	public ModelAndView addblog() {
-		System.out.println("addblog");
-		return new ModelAndView("addblog","command",new Blog());
-	}
+	@RequestMapping(value = { "blog" })
+	public ModelAndView addblog(@Valid @ModelAttribute("peers")  Event e,BindingResult result) {
+		System.out.println("add blog");
+		String jsonData="";
+		ObjectMapper mapper=new ObjectMapper();
+		try {
+			jsonData=mapper.writeValueAsString(iBlogService.viewBlog());
+			System.out.println(jsonData);
+		} catch (JsonGenerationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JsonMappingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+		return new ModelAndView("blog", "command", new Blog()).addObject("blogs", jsonData);
+		}	
+
 	
 	@RequestMapping(value=  { "addchat"})
 	public ModelAndView addchat() {
@@ -40,11 +58,11 @@ public class BlogController {
 	
 
 
-	@RequestMapping(value=  {"blog"})
+	/*@RequestMapping(value=  {"blog"})
 	public ModelAndView blog() {
 		System.out.println("blog");
 		return new ModelAndView("blog","command",new Blog());
-	}
+	}*/
 	@RequestMapping(value = "store3", method=RequestMethod.POST)
 	public ModelAndView addblog(HttpServletRequest request,@Valid @ModelAttribute("peers") Blog b,BindingResult result) {
 		System.out.println("addblog");
@@ -67,7 +85,31 @@ public class BlogController {
 		return mv;
 		//return new ModelAndView("home","command",new User()).addObject("login", true);
 	}
-	@RequestMapping(value=  {"viewblog"})
+	
+	@RequestMapping(value = { "/blog/storeblog" })
+	public String updateProduct(HttpServletRequest request, @ModelAttribute("peers") Event e,BindingResult result) 
+	{
+		System.out.println("Store Blog");
+		Integer eid = 0;
+		//Object teid;
+		e.setEid(eid);
+		return "redirect:/blog";
+		//return new ModelAndView("event", "command", new Product()).addObject("event", iProductService.viewAllProducts());
+	}
+
+	/*@RequestMapping(value = { "blog/delete" })
+	public String deleteblog(HttpServletRequest request) 
+	{
+		String bid = request.getParameter("b");
+		iBlogService.deleteblog(Integer.parseInt(bid));
+		System.out.println("Delete blogimpl");
+		return "redirect:/blog";
+		//return new ModelAndView("event", "command", new Product()).addObject("products",iProductService.viewAllProducts());
+	}
+	*/
+	
+	
+	/*@RequestMapping(value=  {"viewblog"})
 	public ModelAndView viewblog() {
 		System.out.println("viewblog");
 		String jsonData="";
@@ -87,5 +129,5 @@ public class BlogController {
 		}
 		return new ModelAndView("viewblog","command",new Blog()).addObject("blogs", jsonData);
 	}
-
+*/
 }

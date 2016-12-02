@@ -1,197 +1,177 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ page isELIgnored="false" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<title>Register</title>
+<title>Blog</title>
 <style type="text/css">
-
-<style>
-/* Base styles */
-*, 
-*:after, *:before {
- 
- box-sizing: border-box;
- }
-html
- {
- font-size: 100%;
- line-height: 1.5;
- height: 100%;
+body, html{
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Sniglet', cursive;
 }
-body {
- position: relative;
- margin: 0;
- font-family: 'Work Sans', Arial, Helvetica, sans-serif;
- min-height: 100%;
- background: linear-gradient(to bottom, #68EACC 0%, #497BE8 100%);
- color: #777;
+h1{
+	font-weight: normal;
+	font-size: 4em;
+	font-family: 'Raleway', sans-serif;
+	margin: 0 auto;
+	margin-top: 30px;
+	width: 500px;
+	color: #F90;
+	text-align: center;
+
 }
 
-/* img {
- vertical-align: middle;
- max-width: 100%;
-} */
-button {
-cursor: pointer;
- border: 0;
- padding: 0;
- background-color:black;
+/* Animation webkit */
+@-webkit-keyframes myfirst
+{
+	0% {margin-left: -235px}
+	90% {margin-left: 100%;}
+	100% {margin-left: 100%;}
 }
 
-/* Container */
+/* Animation */
+@keyframes myfirst
+{
+	0% {margin-left: -235px}
+	70% {margin-left: 100%;}
+	100% {margin-left: 100%;}
+}
 
-.container {
- position: absolute;
-width: 24em;
-left: 50%;
-top: 50%;
-transform: translate(-50%,-50%);
- animation: intro .7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+.fish{
+	background-image: url('http://www.geertjanhendriks.nl/codepen/form/fish.png');
+	width: 235px;
+	height: 104px;
+	margin-left: -235px;
+	position: absolute;	
+	animation: myfirst 24s;
+	-webkit-animation: myfirst 24s;
+	animation-iteration-count: infinite;
+	-webkit-animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	-webkit-animation-timing-function: linear;
 }
-/* Profile Card */
-.profile {
- position: relative;
-}
-.profile--open {
-}
-.profile--open
-.profile__form {
-  
-visibility: visible;
-  height: auto;
-  opacity: 1;
-  transform: translateY(2em); 
-  padding-top: 12em;
-}
-.profile--open 
- .profile__fields {
- opacity: 1;
-  visibility: visible;
-} 
-.profile--open 
- .profile__siri {
- transform: translate(-50%, -1.5em); 
- border-radius: 50%;
-} 
-.profile__form {
-  position: relative;
- background: white;
- visibility: hidden;
-  opacity: 0;
-  height: 0;
- padding: 3em;
-border-radius: .25em;
- -webkit-filter: drop-shadow(0 0 2em rgba(0,0,0,0.2));
-  transition: 
-    opacity .4s ease-in-out,
-    height .4s ease-in-out,
-    transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    padding .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.profile__fields {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
- .profile__siri {
- position: absolute;
-z-index: 1;
- left: 50%;
- transform: translateX(-50%);
- border-radius: 1.25em;
-overflow: hidden;
- width: 4.5em;
-height: 4.5em;
-display: block;
-transition: transform .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
- will-change: transform;
-} 
- .profile__siri:focus {
- outline: 0;
-} 
-.profile__footer {
-  padding-top: 1em;
-}
-/* Form */
-.field {
- position: relative;
-margin-bottom: 2em;
-}
-.label {
- position: absolute;
-height: 2rem;
- line-height: 2rem;
-bottom: 0;
-color: #999;
-transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.input {
- width: 100%;
-font-size: 100%;
- border: 0;
-padding: 0;
-background-color: transparent;
- height: 2rem;
- line-height: 2rem;
-border-bottom: 1px solid #eee;
-color: #777;
-transition: all .2s ease-in;
-}
-.input:focus {
- outline: 0;
- border-color: #ccc;
-}
-/* Using required and a faux pattern to see if input has text from http://stackoverflow.com/questions/16952526/detect-if-an-input-has-text-in-it-using-css */
 
-.input:focus + .label,
-input:valid + .label {
-  transform: translateY(-100%);
-  font-size: 0.75rem;
- color: #ccc;
+#fish{
+	top: 120px;
 }
-/* Button */
-.btn {
-border: 0;
- font-size: 0.75rem;
- height: 2.5rem;
- line-height: 2.5rem;
- padding: 0 1.5rem;
- color: white;
- background: #8E49E8;
-text-transform: uppercase;
- border-radius: .25rem;
-letter-spacing: .2em;
- transition: background .2s;
+
+#fish2{
+	top: 260px;
+	animation-delay: 12s;
+	-webkit-animation-delay: 12s;
 }
-.btn:focus { 
- outline: 0;
+
+
+header{
+	height: 160px;
+	background: url('http://www.geertjanhendriks.nl/codepen/form/golf.png') repeat-x bottom;
 }
-.btn:hover,
-.btn:focus {
-  background: #A678E2;
+
+#form{
+	height: 100%;	
+	background-color: #98d4f3;
+	overflow: hidden;
+	position: relative;
+	
 }
-/* Intro animation */
-@keyframes intro {
-  from {
- opacity: 0;
-    top: 0;
-  }
-  to
- {
- opacity: 1;
-top: 50%;
+form{
+	margin: 0 auto;
+	width: 500px;
+	padding-top: 40px;
+	color: white;
+	position: relative;
+	
+	
 }
+label, input, textarea{
+	display: block;	
+}
+input, textarea{
+	width: 500px;	
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px;
+	font-family: 'Sniglet', cursive;
+	font-size: 1em;
+	color: #676767;
+	transition: border 0.5s;
+	-webkit-transition: border 0.5s;
+	-moz-transition: border 0.5s;
+	-o-transition: border 0.5s;
+	border: solid 3px #98d4f3;	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	
+}
+input:focus, textarea:focus{
+	border: solid 3px #77bde0;	
+}
+
+textarea{
+	height: 100px;	
+	resize: none; 
+	overflow: auto;
+}
+input[type="submit"]{
+	background-color: #F90;
+	color: white;
+	height: 50px;
+	cursor: pointer;
+	margin-top: 30px;
+	font-size: 1.29em;
+	font-family: 'Sniglet', cursive;
+	-webkit-transition: background-color 0.5s;
+	-moz-transition: background-color 0.5s;
+	-o-transition: background-color 0.5s;
+	transition: background-color 0.5s;
+}
+input[type="submit"]:hover{
+	background-color: #e58f0e;
+	
+}
+label{
+	font-size: 1.5em;
+	margin-top: 20px;
+	padding-left: 20px;
+}
+.formgroup, .formgroup-active, .formgroup-error{
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	background-size: 10.5%;
+	transition: background-image 0.7s;
+	-webkit-transition: background-image 0.7s;
+	-moz-transition: background-image 0.7s;
+	-o-transition: background-image 0.7s;
+	width: 566px;
+	padding-top: 2px;
+}
+
+.formgroup{
+	background-image: url('http://www.geertjanhendriks.nl/codepen/form/pixel.gif');	
+}
+.formgroup-active{
+	background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo.png');
+}
+.formgroup-error{
+	background-image: url('http://www.geertjanhendriks.nl/codepen/form/octo-error.png');
+	color: red;
 }
 </style> 
 <body>
@@ -199,50 +179,134 @@ top: 50%;
  <c:forEach var="e" items="${errors}">
 		<li>${e.getDefaultMessage()}" </li>
 	</c:forEach> 
-     <div class="container">
-      <div class="profile">
-     <button class="profile__siri" id="toggleProfile">
-            forum
-      </button>
-      <div class="profile__form">
-        <div class="profile__fields">
-           <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path='bname' name="fieldUser" placeholder="bname"  class="input" required="true" />
-   </div> 
-   <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path='bcontent' name="fieldUser" placeholder="bcontent"  class="input" required="true" />
+	
+	<div id="form">
+
+<div class="fish" id="fish"></div>
+<div class="fish" id="fish2"></div>
+
+<form id="waterform" method="post">
+
+<div class="formgroup" id="name-form">
+    <label for="name">Your name*</label>
+    <form:input path='bname' name="fieldUser" placeholder="bname"  class="input" required="true" />
+</div>
+
+<div class="formgroup" id="email-form">
+    <label for="email">Your Content*</label>
+    <form:input path='bcontent' name="fieldUser" placeholder="bcontent"  class="input" required="true" />
+</div>
+<div class="formgroup" id="email-form">
+    <label for="email">Your Content*</label>
+    <form:input path='reason' name="fieldUser" placeholder="reason"  class="input" required="true" />
+</div>
+
+<div class="formgroup" id="email-form">
+    <label for="email">Your Content*</label>
+    <form:input path='title' name="fieldUser" placeholder="status"  class="input" required="true" />
+ 
+</div>
+
+<div class="formgroup" id="email-form">
+    <label for="email">Your Content*</label>
+     <form:input path='status' name="fieldUser" placeholder="status"  class="input" required="true" />
    </div>
-   <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path='reason' name="fieldUser" placeholder="reason"  class="input" required="true" />
-   </div>
-   <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path='title' name="fieldUser" placeholder="title"  class="input" required="true" />
-   </div>
-   <div class="field">
-           <label for="fieldUser" class="label" ></label>
-        <form:input path='status' name="fieldUser" placeholder="status"  class="input" required="true" />
-   </div>
-   
-      </div>
-       <div class="profile__footer">
-      <button type="submit" class="btn btn-success btn-sm"> add blog</button>
-       
-       <!--  <button class="btn">Login</button> -->
-       </div>
-     </div>
-     </div>
-    </div>
+
+
+<div class="formgroup" id="message-form">
+    <label for="message">Your message*</label>
+    <textarea id="message" name="message"></textarea>
+</div>
+<ul>
+                  <li><a href="viewblog">See All Posts</a></li> 
+                
+                </ul>
+	<input type="submit" value="Add Blog!" />
+</form>
+</div>
+<div ng-app="myApp" ng-controller="dataCtrl">
+Enter Blog Name:  <input type="text"  ng-model="search">&nbsp&nbsp<span class="glyphicon glyphicon-search"></span>
+    <hr></hr>
+    <table class="table table-striped">
+    <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Reason</th>
+    <th>Title</th>
+    <th>Status</th>
+    <th>user</th>
+    </tr>
+        <tr ng-repeat="resource in names | filter:search">
+             <td>{{resource.bid}}</td>
+            <td>{{ resource.bname}}</td>
+            <td>{{ resource.date}}</td>
+            <td>{{ resource.reason}}</td>
+            <td>{{ resource.title}}</td>
+            <td>{{ resource.status}}</td>
+            <td>{{ resource.user.uid}}</td> 
+
+  
+  <textarea name='comment' id='comment'></textarea><br />
+  <form:input path='author' name="fieldUser" placeholder="author"  class="input" required="true" />
+    <form:input path='comid' name="fieldUser" placeholder="comid"  class="input" required="true" />
+    
+
+  <form:input path='cdesc' name="fieldUser" placeholder="comid"  class="input" required="true"/> value='<? echo $_GET["id"]; ?>' />
+
+  <input type='submit' value='Submit' />  
+</form>
+            <!-- <td><img src="resources/images/{{resource.bid}}.jpg" style="width: 200px;height:150px"></td>
+ -->            <td><a href="deleteblog?id={{resource.blog_id}}">Delete</a></td> 
+        </tr>    
+    </table>
+</div>
+<div>
+
 </form:form>
 <script>
-document.getElementById('toggleProfile').addEventListener('click', function () {
-  [].map.call(document.querySelectorAll('.profile'), function(el) {
-    el.classList.toggle('profile--open');
-  });
+$('document').ready(function(){
+	$('input[type="text"], input[type="email"], textarea').focus(function(){
+		var background = $(this).attr('id');
+		$('#' + background + '-form').addClass('formgroup-active');
+		$('#' + background + '-form').removeClass('formgroup-error');
+	});
+	$('input[type="text"], input[type="email"], textarea').blur(function(){
+		var background = $(this).attr('id');
+		$('#' + background + '-form').removeClass('formgroup-active');
+	});
+
+function errorfield(field){
+	$(field).addClass('formgroup-error');
+	console.log(field);	
+}
+
+$("#waterform").submit(function() {
+	var stopsubmit = false;
+
+if($('#name').val() == "") {
+	errorfield('#name-form');
+	stopsubmit=true;
+}
+if($('#email').val() == "") {
+	errorfield('#email-form');
+	stopsubmit=true;
+}
+  if(stopsubmit) return false;
 });
+		
+});
+</script>
+<script>
+angular.module('myApp',[]).controller('dataCtrl',function($scope)
+		{
+	
+		$scope.names=${blogs};
+		$scope.orderByMe=function(x)
+		{
+			$scope.myOrderBy=x;
+			}
+		});
 </script>
 </body>
 </html>

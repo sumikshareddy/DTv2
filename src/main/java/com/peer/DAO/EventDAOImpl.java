@@ -23,35 +23,40 @@ public class EventDAOImpl implements EventDAO {
 	private SessionFactory sf;
 	private Event event;
 	
-	
-    @Transactional(propagation=Propagation.SUPPORTS)
+	@Transactional(propagation = Propagation.SUPPORTS)
 	public void addevent(Event e) {
-		Session s=sf.getCurrentSession();
-    	Transaction t=s.beginTransaction();
-    	e.setDate(new Date());
-    	e.setCreationdate(new Date());
-    	s.saveOrUpdate(e);
-    	t.commit();
+		System.out.println("event added");
+		Session s = sf.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		e.setDate(new Date());
+		e.setCreationdate(new Date());
+		System.out.println("added into event list");
+		s.save(e);
+		t.commit();
 	}
-    @Transactional(propagation=Propagation.SUPPORTS)
+
+	@Transactional(propagation = Propagation.SUPPORTS)
+	public List<Event> viewEvent() {
+		System.out.println("list of events");
+		Session s = sf.getCurrentSession();
+		Transaction t = s.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<Event> l1 = (List<Event>) sf.getCurrentSession().createCriteria(Event.class).list();
+		System.out.println("contents events");
+		t.commit();
+		return l1;
+	}
+
+	@Transactional(propagation=Propagation.SUPPORTS)
 	public void deleteevent(int id) {
+		System.out.println("delete event");
 		Session s=sf.getCurrentSession();
 		Transaction t=s.beginTransaction();
 		Event e1=(Event)s.load(Event.class,id);
 		s.delete(e1);
 		t.commit();
 	}
-	
-    @Transactional(propagation=Propagation.SUPPORTS)
-	public List<Event> viewEvent() {
-	Session s=sf.getCurrentSession();
-	Transaction t=s.beginTransaction();
-	Criteria c=sf.getCurrentSession().createCriteria(Event.class);
-	List<Event> e1 =(List<Event>)c.list();
-	t.commit();
-	return e1;
-			}
-	
-	}
+
+}
     
 
